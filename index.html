@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نور الحديث | موسوعة الأحاديث النبوية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #1a472a;
+  --green-mid: #2d6a4f;
+  --green-light: #52b788;
+  --green-pale: #d8f3dc;
+  --gold: #c9a84c;
+  --gold-light: #f0d080;
+  --bg: #f7fbf5;
+  --card: #ffffff;
+  --text: #1a2e1e;
+  --text-muted: #5a7a62;
+  --border: #c8dfc8;
+  --shadow: 0 4px 24px rgba(26,71,42,0.10);
+  --shadow-lg: 0 12px 48px rgba(26,71,42,0.18);
+  --radius: 18px;
+}
+body.dark {
+  --bg: #0d1a12; --card: #132019; --text: #e8f5e0;
+  --border: #2a4030; --text-muted: #7aaa85;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Cairo',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; }
+
+/* NAV */
+nav { background:var(--green); position:sticky; top:0; z-index:100; box-shadow:0 2px 20px rgba(0,0,0,.3); }
+.nav-inner { max-width:1200px; margin:0 auto; padding:0 20px; height:66px; display:flex; align-items:center; gap:14px; }
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--gold),var(--gold-light)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.logo-main { font-family:'Amiri',serif; font-size:21px; color:var(--gold-light); font-weight:700; display:block; line-height:1.1; }
+.logo-sub { font-size:9px; color:rgba(255,255,255,.5); letter-spacing:1px; display:block; }
+.nav-search { flex:1; max-width:460px; position:relative; margin:0 10px; }
+.nav-search input { width:100%; padding:9px 40px 9px 14px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:22px; color:white; font-family:'Cairo',sans-serif; font-size:14px; outline:none; transition:all .2s; }
+.nav-search input::placeholder { color:rgba(255,255,255,.5); }
+.nav-search input:focus { background:rgba(255,255,255,.2); border-color:var(--gold); }
+.nav-search-icon { position:absolute; left:13px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,.5); font-size:15px; }
+.nav-actions { display:flex; align-items:center; gap:6px; margin-right:auto; }
+.nav-btn { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15); color:white; padding:7px 13px; border-radius:20px; cursor:pointer; font-family:'Cairo',sans-serif; font-size:13px; font-weight:600; display:flex; align-items:center; gap:5px; transition:all .2s; white-space:nowrap; }
+.nav-btn:hover { background:rgba(255,255,255,.2); border-color:var(--gold); color:var(--gold-light); }
+.nav-btn.gold { background:var(--gold); border-color:var(--gold); color:#1a2e1e; }
+.nav-btn.gold:hover { background:var(--gold-light); }
+
+/* HERO */
+.hero { background:linear-gradient(160deg,var(--green) 0%,var(--green-mid) 50%,#1a3a28 100%); padding:60px 20px 70px; text-align:center; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 20% 50%,rgba(201,168,76,.12) 0%,transparent 50%),radial-gradient(circle at 80% 30%,rgba(82,183,136,.15) 0%,transparent 50%); }
+.hero-pattern { position:absolute; inset:0; opacity:.04; background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c9a84c'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); }
+.hero-content { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+.bismillah { font-family:'Amiri',serif; font-size:clamp(20px,3.5vw,30px); color:var(--gold-light); margin-bottom:18px; opacity:.9; }
+.hero h1 { font-family:'Amiri',serif; font-size:clamp(30px,6vw,54px); color:white; line-height:1.25; margin-bottom:12px; }
+.hero h1 em { color:var(--gold-light); font-style:normal; }
+.hero p { color:rgba(255,255,255,.65); font-size:15px; line-height:1.7; margin-bottom:28px; }
+.hero-cta { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.btn-hero { padding:13px 26px; border-radius:28px; cursor:pointer; font-family:'Cairo',sans-serif; font-size:15px; font-weight:700; border:none; transition:all .25s; display:flex; align-items:center; gap:7px; }
+.btn-gold { background:var(--gold); color:#1a2e1e; }
+.btn-gold:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,.4); }
+.btn-outline { background:transparent; color:white; border:2px solid rgba(255,255,255,.4); }
+.btn-outline:hover { border-color:white; background:rgba(255,255,255,.1); }
+.hero-stats { display:flex; justify-content:center; gap:36px; margin-top:40px; padding-top:28px; border-top:1px solid rgba(255,255,255,.15); }
+.hstat { text-align:center; }
+.hstat-num { font-size:26px; font-weight:900; color:var(--gold-light); }
+.hstat-label { font-size:11px; color:rgba(255,255,255,.55); margin-top:2px; }
+
+/* LOADING */
+.loading-screen { text-align:center; padding:80px 20px; }
+.spinner { width:50px; height:50px; border:4px solid var(--border); border-top-color:var(--green-light); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 20px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-text { font-size:16px; color:var(--text-muted); font-weight:600; }
+.loading-sub { font-size:13px; color:var(--text-muted); margin-top:8px; }
+
+/* SECTION */
+.section { max-width:1200px; margin:0 auto; padding:36px 20px; }
+.section-header { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+.section-title { font-family:'Amiri',serif; font-size:24px; font-weight:700; color:var(--green); white-space:nowrap; }
+body.dark .section-title { color:var(--green-light); }
+.section-line { flex:1; height:1px; background:linear-gradient(to left,transparent,var(--border)); }
+
+/* HADITH OF DAY */
+.hadith-day-card { background:linear-gradient(135deg,var(--green) 0%,var(--green-mid) 100%); border-radius:var(--radius); padding:36px; position:relative; overflow:hidden; }
+.hadith-day-card::before { content:'❝'; position:absolute; top:-10px; right:20px; font-size:110px; color:rgba(255,255,255,.07); font-family:serif; line-height:1; }
+.hadith-day-text { font-family:'Amiri',serif; font-size:clamp(18px,2.8vw,26px); color:white; line-height:2; margin-bottom:18px; position:relative; z-index:1; }
+.hadith-day-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.meta-badge { background:rgba(255,255,255,.15); color:var(--gold-light); padding:4px 12px; border-radius:18px; font-size:12px; font-weight:600; border:1px solid rgba(201,168,76,.3); }
+.grade-badge-gold { background:var(--gold); color:#1a2e1e; padding:4px 12px; border-radius:18px; font-size:12px; font-weight:700; }
+.hadith-actions { margin-top:18px; display:flex; gap:8px; flex-wrap:wrap; }
+.action-btn { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:white; padding:7px 14px; border-radius:18px; cursor:pointer; font-family:'Cairo',sans-serif; font-size:12px; font-weight:600; display:flex; align-items:center; gap:5px; transition:all .2s; }
+.action-btn:hover { background:rgba(255,255,255,.22); }
+
+/* BOOKS */
+.books-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:14px; }
+.book-card { background:var(--card); border-radius:var(--radius); padding:22px 14px; text-align:center; cursor:pointer; border:2px solid var(--border); transition:all .25s; position:relative; overflow:hidden; }
+.book-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--green),var(--green-mid)); opacity:0; transition:opacity .25s; }
+.book-card:hover::before { opacity:1; }
+.book-card:hover .book-icon,.book-card:hover .book-name,.book-card:hover .book-count { color:white !important; }
+.book-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--green); }
+.book-card.active-book { border-color:var(--green); background:var(--green-pale); }
+body.dark .book-card.active-book { background:rgba(45,106,79,.2); }
+.book-icon { font-size:38px; margin-bottom:10px; position:relative; z-index:1; }
+.book-name { font-family:'Amiri',serif; font-size:16px; font-weight:700; color:var(--green); margin-bottom:4px; position:relative; z-index:1; transition:color .25s; }
+body.dark .book-name { color:var(--green-light); }
+.book-count { font-size:11px; color:var(--text-muted); position:relative; z-index:1; transition:color .25s; }
+
+/* FILTERS */
+.filters-bar { background:var(--card); border-radius:var(--radius); padding:14px 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:20px; box-shadow:var(--shadow); border:1px solid var(--border); }
+.filter-label { font-size:13px; color:var(--text-muted); font-weight:600; white-space:nowrap; }
+select.fsel { padding:7px 12px; border:1px solid var(--border); border-radius:18px; background:var(--bg); font-family:'Cairo',sans-serif; font-size:13px; color:var(--text); cursor:pointer; outline:none; transition:border-color .2s; }
+select.fsel:focus { border-color:var(--green-light); }
+.search-inline { flex:1; min-width:180px; position:relative; }
+.search-inline input { width:100%; padding:8px 34px 8px 12px; border:1px solid var(--border); border-radius:18px; font-family:'Cairo',sans-serif; font-size:13px; color:var(--text); background:var(--bg); outline:none; transition:border-color .2s; }
+.search-inline input:focus { border-color:var(--green-light); }
+.search-inline .si { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:14px; }
+.results-info { margin-right:auto; font-size:12px; color:var(--text-muted); white-space:nowrap; }
+
+/* HADITHS */
+.hadiths-list { display:flex; flex-direction:column; gap:14px; }
+.hadith-card { background:var(--card); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); border:1px solid var(--border); transition:all .25s; animation:fadeUp .35s ease both; position:relative; }
+.hadith-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-2px); border-color:var(--green-light); }
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+.hadith-card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; gap:10px; flex-wrap:wrap; }
+.hadith-num { background:linear-gradient(135deg,var(--green),var(--green-mid)); color:white; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+.badges { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+.hadith-book-label { font-size:11px; color:var(--text-muted); font-weight:600; background:var(--bg); padding:3px 10px; border-radius:10px; border:1px solid var(--border); }
+.grade-sahih { background:#d1fae5; color:#059669; padding:3px 10px; border-radius:10px; font-size:11px; font-weight:700; }
+.grade-hasan  { background:#dbeafe; color:#2563eb; padding:3px 10px; border-radius:10px; font-size:11px; font-weight:700; }
+.grade-daif   { background:#fef3c7; color:#d97706; padding:3px 10px; border-radius:10px; font-size:11px; font-weight:700; }
+body.dark .grade-sahih { background:#064e3b; color:#6ee7b7; }
+body.dark .grade-hasan  { background:#1e3a5f; color:#93c5fd; }
+body.dark .grade-daif   { background:#451a03; color:#fcd34d; }
+body.dark .hadith-book-label { background:rgba(255,255,255,.06); border-color:var(--border); }
+.hadith-text { font-family:'Amiri',serif; font-size:clamp(17px,2.3vw,21px); line-height:2.1; color:var(--text); margin-bottom:14px; padding:14px; background:var(--bg); border-radius:10px; border-right:4px solid var(--gold); }
+body.dark .hadith-text { background:rgba(255,255,255,.04); }
+.hadith-narrator { font-size:12px; color:var(--text-muted); margin-bottom:12px; }
+.hadith-card-actions { display:flex; gap:7px; flex-wrap:wrap; padding-top:12px; border-top:1px solid var(--border); }
+.small-btn { padding:5px 12px; border-radius:14px; font-family:'Cairo',sans-serif; font-size:12px; font-weight:600; cursor:pointer; border:1px solid var(--border); background:var(--bg); color:var(--text-muted); display:flex; align-items:center; gap:4px; transition:all .2s; }
+.small-btn:hover { border-color:var(--green-light); color:var(--green); background:var(--green-pale); }
+.small-btn.fav-active { border-color:#fca5a5; color:#ef4444; background:#fef2f2; }
+body.dark .small-btn { background:rgba(255,255,255,.05); border-color:var(--border); color:var(--text-muted); }
+body.dark .small-btn:hover { background:rgba(82,183,136,.1); color:var(--green-light); border-color:var(--green-light); }
+
+/* PAGINATION */
+.pagination { display:flex; justify-content:center; gap:7px; margin-top:28px; flex-wrap:wrap; }
+.page-btn { width:38px; height:38px; border-radius:9px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; font-family:'Cairo',sans-serif; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.page-btn:hover { border-color:var(--green-light); color:var(--green); }
+.page-btn.active { background:var(--green); color:white; border-color:var(--green); }
+.page-btn:disabled { opacity:.4; cursor:not-allowed; }
+body.dark .page-btn { background:var(--card); border-color:var(--border); color:var(--text); }
+
+/* ERROR/EMPTY */
+.empty-state { text-align:center; padding:60px 20px; color:var(--text-muted); }
+.empty-state .eicon { font-size:56px; margin-bottom:14px; }
+
+/* ADMIN */
+.admin-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:500; backdrop-filter:blur(6px); align-items:center; justify-content:center; }
+.admin-overlay.open { display:flex; }
+.admin-panel { background:var(--card); border-radius:var(--radius); width:95%; max-width:600px; max-height:88vh; overflow-y:auto; animation:slideUp .3s ease; border:1px solid var(--border); }
+@keyframes slideUp { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.admin-header { padding:18px 22px; background:linear-gradient(135deg,var(--green),var(--green-mid)); border-radius:var(--radius) var(--radius) 0 0; display:flex; align-items:center; justify-content:space-between; }
+.admin-header h2 { color:white; font-size:17px; font-weight:700; }
+.admin-close { background:rgba(255,255,255,.2); border:none; color:white; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:17px; display:flex; align-items:center; justify-content:center; }
+.admin-body { padding:22px; }
+.form-row { margin-bottom:13px; }
+.form-row label { display:block; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:5px; text-transform:uppercase; letter-spacing:.5px; }
+.form-row input,.form-row select,.form-row textarea { width:100%; padding:10px 13px; border:2px solid var(--border); border-radius:9px; font-family:'Cairo',sans-serif; font-size:14px; background:var(--bg); color:var(--text); outline:none; transition:border-color .2s; }
+.form-row textarea { resize:vertical; min-height:90px; }
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus { border-color:var(--green-light); }
+.btn-green { width:100%; padding:12px; background:var(--green); color:white; border:none; border-radius:9px; cursor:pointer; font-family:'Cairo',sans-serif; font-size:15px; font-weight:700; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:7px; }
+.btn-green:hover { background:var(--green-mid); }
+.admin-tabs { display:flex; gap:0; margin-bottom:18px; background:var(--bg); border-radius:9px; padding:3px; }
+.admin-tab { flex:1; padding:8px; background:none; border:none; cursor:pointer; font-family:'Cairo',sans-serif; font-size:13px; font-weight:600; border-radius:7px; transition:all .2s; color:var(--text-muted); }
+.admin-tab.active { background:var(--green); color:white; }
+.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+.stat-card { background:var(--bg); border-radius:10px; padding:14px; text-align:center; border:1px solid var(--border); }
+.stat-card .sv { font-size:26px; font-weight:900; color:var(--green); }
+body.dark .stat-card .sv { color:var(--green-light); }
+.stat-card .sl { font-size:11px; color:var(--text-muted); margin-top:3px; }
+.admin-list { display:flex; flex-direction:column; gap:8px; max-height:300px; overflow-y:auto; }
+.admin-item { display:flex; align-items:center; gap:8px; padding:9px 11px; border:1px solid var(--border); border-radius:9px; background:var(--bg); }
+.admin-item-text { flex:1; font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.admin-item-del { background:#fef2f2; border:1px solid #fca5a5; color:#ef4444; border-radius:6px; padding:4px 9px; cursor:pointer; font-size:11px; }
+.admin-item-edit { background:#eff6ff; border:1px solid #93c5fd; color:#2563eb; border-radius:6px; padding:4px 9px; cursor:pointer; font-size:11px; }
+body.dark .admin-panel,.dark .form-row input,.dark .form-row select,.dark .form-row textarea { background:var(--card); color:var(--text); border-color:var(--border); }
+
+/* SHARE */
+.share-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:400; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
+.share-modal.open { display:flex; }
+.share-box { background:var(--card); border-radius:var(--radius); padding:24px; width:90%; max-width:360px; animation:slideUp .3s ease; border:1px solid var(--border); }
+.share-btns { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.share-btn { padding:13px; border-radius:11px; border:none; cursor:pointer; font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:7px; transition:all .2s; }
+.share-btn:hover { transform:translateY(-2px); opacity:.9; }
+.share-wa   { background:#25D366; color:white; }
+.share-fb   { background:#1877F2; color:white; }
+.share-tw   { background:#1DA1F2; color:white; }
+.share-copy { background:var(--bg); color:var(--text); border:1px solid var(--border); }
+
+/* TOAST */
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--green); color:white; padding:11px 22px; border-radius:28px; font-size:14px; font-weight:700; z-index:9999; display:none; align-items:center; gap:7px; box-shadow:0 8px 32px rgba(26,71,42,.35); animation:toastAnim .3s ease; white-space:nowrap; }
+.toast.show { display:flex; }
+@keyframes toastAnim { from { transform:translateX(-50%) translateY(16px); opacity:0; } to { transform:translateX(-50%) translateY(0); opacity:1; } }
+
+footer { background:var(--green); color:rgba(255,255,255,.7); text-align:center; padding:24px 20px; font-size:13px; margin-top:40px; }
+footer strong { color:var(--gold-light); }
+.footer-links { display:flex; justify-content:center; gap:18px; margin-top:8px; flex-wrap:wrap; }
+.footer-links a { color:rgba(255,255,255,.55); text-decoration:none; font-size:12px; transition:color .2s; }
+.footer-links a:hover { color:var(--gold-light); }
+
+@media (max-width:640px) {
+  .nav-search { display:none; }
+  .hero { padding:44px 14px 56px; }
+  .hero-stats { gap:18px; }
+  .books-grid { grid-template-columns:repeat(2,1fr); }
+  .hadith-card { padding:16px; }
+  .hadith-day-card { padding:20px; }
+  .hadith-text { font-size:17px; }
+  .nav-btn .lbl { display:none; }
+  .stats-grid { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🌙</div>
+      <div>
+        <span class="logo-main">نور الحديث</span>
+        <span class="logo-sub">موسوعة السنة النبوية</span>
+      </div>
+    </a>
+    <div class="nav-search">
+      <input type="text" id="mainSearch" placeholder="ابحث في الأحاديث..." oninput="handleSearch(this.value)">
+      <span class="nav-search-icon">🔍</span>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="toggleDark()" id="darkBtn">🌙 <span class="lbl">ليلي</span></button>
+      <button class="nav-btn" onclick="showFavorites()">❤️ <span class="lbl">مفضلتي</span></button>
+      <button class="nav-btn gold" onclick="openAdmin()">⚙️ <span class="lbl">تحكم</span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <h1>موسوعة <em>نور الحديث</em><br>السنة النبوية الشريفة</h1>
+    <p>آلاف الأحاديث النبوية الصحيحة من أمهات كتب السنة<br>مع البحث السريع والتصفية الدقيقة</p>
+    <div class="hero-cta">
+      <button class="btn-hero btn-gold" onclick="scrollTo('hadithsSection')">📖 تصفح الأحاديث</button>
+      <button class="btn-hero btn-outline" onclick="scrollTo('booksSection')">📚 كتب الحديث</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num" id="totalCountHero">يُحمَّل...</div><div class="hstat-label">حديث</div></div>
+      <div class="hstat"><div class="hstat-num">6</div><div class="hstat-label">كتاب</div></div>
+      <div class="hstat"><div class="hstat-num">100%</div><div class="hstat-label">موثّق</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HADITH OF DAY -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">🌟 حديث اليوم</div>
+    <div class="section-line"></div>
+  </div>
+  <div id="hadithOfDay">
+    <div class="loading-screen" style="padding:40px">
+      <div class="spinner"></div>
+      <div class="loading-text">جاري تحميل حديث اليوم...</div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKS -->
+<div class="section" id="booksSection">
+  <div class="section-header">
+    <div class="section-title">📚 كتب السنة</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="books-grid">
+    <div class="book-card" id="book-bukhari" onclick="loadBook('bukhari')">
+      <div class="book-icon">📗</div>
+      <div class="book-name">صحيح البخاري</div>
+      <div class="book-count" id="count-bukhari">7,563 حديث</div>
+    </div>
+    <div class="book-card" id="book-muslim" onclick="loadBook('muslim')">
+      <div class="book-icon">📘</div>
+      <div class="book-name">صحيح مسلم</div>
+      <div class="book-count" id="count-muslim">3,033 حديث</div>
+    </div>
+    <div class="book-card" id="book-abudawud" onclick="loadBook('abudawud')">
+      <div class="book-icon">📙</div>
+      <div class="book-name">سنن أبي داود</div>
+      <div class="book-count" id="count-abudawud">5,274 حديث</div>
+    </div>
+    <div class="book-card" id="book-tirmidhi" onclick="loadBook('tirmidhi')">
+      <div class="book-icon">📕</div>
+      <div class="book-name">سنن الترمذي</div>
+      <div class="book-count" id="count-tirmidhi">3,891 حديث</div>
+    </div>
+    <div class="book-card" id="book-nasai" onclick="loadBook('nasai')">
+      <div class="book-icon">📒</div>
+      <div class="book-name">سنن النسائي</div>
+      <div class="book-count" id="count-nasai">5,761 حديث</div>
+    </div>
+    <div class="book-card" id="book-ibnmajah" onclick="loadBook('ibnmajah')">
+      <div class="book-icon">📓</div>
+      <div class="book-name">سنن ابن ماجه</div>
+      <div class="book-count" id="count-ibnmajah">4,341 حديث</div>
+    </div>
+  </div>
+</div>
+
+<!-- HADITHS -->
+<div class="section" id="hadithsSection">
+  <div class="section-header">
+    <div class="section-title" id="sectionLabel">📖 جميع الأحاديث</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="filters-bar">
+    <div class="search-inline">
+      <input type="text" id="hadithSearch" placeholder="ابحث في نص الحديث..." oninput="handleSearch(this.value)">
+      <span class="si">🔍</span>
+    </div>
+    <span class="filter-label">الكتاب:</span>
+    <select class="fsel" id="bookFilter" onchange="loadBook(this.value)">
+      <option value="">الكل</option>
+      <option value="bukhari">صحيح البخاري</option>
+      <option value="muslim">صحيح مسلم</option>
+      <option value="abudawud">سنن أبي داود</option>
+      <option value="tirmidhi">سنن الترمذي</option>
+      <option value="nasai">سنن النسائي</option>
+      <option value="ibnmajah">سنن ابن ماجه</option>
+    </select>
+    <span class="results-info" id="resultsInfo">—</span>
+  </div>
+  <div id="hadithsList"></div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<footer>
+  <div>جميع الأحاديث منقولة من <strong>أمهات كتب السنة النبوية</strong> المعتمدة</div>
+  <div style="margin-top:5px;font-size:11px">اللهم صلّ وسلم على نبينا محمد ﷺ</div>
+  <div class="footer-links">
+    <a href="#">الرئيسية</a><a href="#">عن الموقع</a><a href="#">تواصل معنا</a>
+  </div>
+</footer>
+
+<!-- ADMIN -->
+<div class="admin-overlay" id="adminOverlay" onclick="closeAdminOverlay(event)">
+  <div class="admin-panel">
+    <div class="admin-header">
+      <h2>🔐 لوحة التحكم</h2>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="admin-body" id="adminBody"></div>
+  </div>
+</div>
+
+<!-- SHARE -->
+<div class="share-modal" id="shareModal" onclick="if(event.target===this)closeShare()">
+  <div class="share-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-size:16px;font-weight:700">📤 مشاركة الحديث</div>
+      <button onclick="closeShare()" style="background:none;border:none;font-size:19px;cursor:pointer;color:var(--text-muted)">✕</button>
+    </div>
+    <div id="sharePreview" style="font-family:'Amiri',serif;font-size:15px;line-height:1.8;padding:12px;background:var(--bg);border-radius:9px;margin-bottom:14px;border-right:3px solid var(--gold);"></div>
+    <div class="share-btns">
+      <button class="share-btn share-wa"   onclick="doShare('wa')">💬 واتساب</button>
+      <button class="share-btn share-fb"   onclick="doShare('fb')">📘 فيسبوك</button>
+      <button class="share-btn share-tw"   onclick="doShare('tw')">🐦 تويتر</button>
+      <button class="share-btn share-copy" onclick="doShare('copy')">📋 نسخ</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIG & STATE
+// ============================================================
+const ADMIN_PASS   = 'noor2024admin'; // ← غيّرها
+const CDN_BASE     = 'https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions';
+
+const BOOKS = {
+  bukhari:  { ar:'صحيح البخاري',   code:'ara-bukhari',   total:7563 },
+  muslim:   { ar:'صحيح مسلم',      code:'ara-muslim',    total:3033 },
+  abudawud: { ar:'سنن أبي داود',   code:'ara-abudawud',  total:5274 },
+  tirmidhi: { ar:'سنن الترمذي',    code:'ara-tirmidhi',  total:3891 },
+  nasai:    { ar:'سنن nasai',       code:'ara-nasai',     total:5761 },
+  ibnmajah: { ar:'سنن ابن ماجه',   code:'ara-ibnmajah',  total:4341 },
+};
+
+// Fix nasai Arabic name
+BOOKS.nasai.ar = 'سنن النسائي';
+
+const PER_PAGE = 10;
+
+const state = {
+  dark:         localStorage.getItem('noor_dark') === 'true',
+  favorites:    JSON.parse(localStorage.getItem('noor_favs') || '[]'),
+  customHadiths:JSON.parse(localStorage.getItem('noor_custom') || '[]'),
+  adminLoggedIn:false,
+  currentBook:  '',
+  currentSearch:'',
+  currentPage:  1,
+  allHadiths:   [],     // loaded from API
+  filtered:     [],
+  shareHadith:  null,
+  loading:      false,
+  cache:        {},     // book => hadiths[]
+};
+
+// ============================================================
+// DARK MODE
+// ============================================================
+if (state.dark) {
+  document.body.classList.add('dark');
+  document.getElementById('darkBtn').textContent = '☀️ ';
+}
+
+function toggleDark() {
+  state.dark = !state.dark;
+  document.body.classList.toggle('dark', state.dark);
+  localStorage.setItem('noor_dark', state.dark);
+  document.getElementById('darkBtn').innerHTML = state.dark ? '☀️ <span class="lbl">نهاري</span>' : '🌙 <span class="lbl">ليلي</span>';
+}
+
+// ============================================================
+// API  — fawazahmed0/hadith-api (مجاني بلا مفتاح)
+// ============================================================
+async function fetchBook(bookKey) {
+  if (state.cache[bookKey]) return state.cache[bookKey];
+
+  const code = BOOKS[bookKey]?.code;
+  if (!code) return [];
+
+  try {
+    const url  = `${CDN_BASE}/${code}.min.json`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('fetch failed');
+    const data = await resp.json();
+
+    // بنية الـ API: { hadiths: [ {hadithnumber, text}, ... ] }
+    const list = (data.hadiths || []).map(h => ({
+      id:       `${bookKey}_${h.hadithnumber}`,
+      book:     bookKey,
+      num:      h.hadithnumber,
+      text:     h.text || '',
+      narrator: extractNarrator(h.text || ''),
+      grade:    'صحيح',   // API لا يحتوي درجة في الـ edition العربية
+    }));
+
+    state.cache[bookKey] = list;
+    return list;
+  } catch(e) {
+    console.warn(`تعذّر تحميل ${bookKey}:`, e);
+    return [];
+  }
+}
+
+function extractNarrator(text) {
+  // محاولة استخراج اسم الراوي من أول الحديث
+  const m = text.match(/^([^:]+):/);
+  if (m) return m[1].trim().replace(/^عن\s+/, '').replace(/^حدثنا\s+/, '');
+  return '';
+}
+
+// ============================================================
+// LOAD & RENDER
+// ============================================================
+async function loadBook(bookKey) {
+  // تحديث UI فوراً
+  document.getElementById('bookFilter').value = bookKey;
+  document.querySelectorAll('.book-card').forEach(c => c.classList.remove('active-book'));
+  if (bookKey) document.getElementById('book-' + bookKey)?.classList.add('active-book');
+
+  state.currentBook   = bookKey;
+  state.currentPage   = 1;
+  state.currentSearch = '';
+  document.getElementById('hadithSearch').value = '';
+
+  const label = bookKey ? `📖 ${BOOKS[bookKey]?.ar}` : '📖 جميع الأحاديث';
+  document.getElementById('sectionLabel').textContent = label;
+
+  showListLoading();
+  scrollTo('hadithsSection');
+
+  if (bookKey) {
+    const hadiths = await fetchBook(bookKey);
+    state.allHadiths = hadiths;
+  } else {
+    // تحميل أول كتابَين كعيّنة إذا لم يُحدَّد كتاب
+    if (state.allHadiths.length === 0) {
+      const bk = await fetchBook('bukhari');
+      const ms = await fetchBook('muslim');
+      state.allHadiths = [...bk, ...ms];
+    }
+  }
+
+  applyFilters();
+}
+
+function showListLoading() {
+  document.getElementById('hadithsList').innerHTML = `
+    <div class="loading-screen">
+      <div class="spinner"></div>
+      <div class="loading-text">جاري تحميل الأحاديث من السيرفر...</div>
+      <div class="loading-sub">قد يستغرق ذلك لحظات</div>
+    </div>`;
+  document.getElementById('pagination').innerHTML = '';
+  document.getElementById('resultsInfo').textContent = '—';
+}
+
+function applyFilters() {
+  const q = state.currentSearch.trim();
+  let list = state.allHadiths;
+
+  if (q.length >= 2) {
+    list = list.filter(h => h.text.includes(q) || h.narrator.includes(q));
+  }
+
+  // أضف الأحاديث المخصصة
+  const custom = state.customHadiths.filter(h =>
+    (!state.currentBook || h.book === state.currentBook) &&
+    (!q || h.text.includes(q) || h.narrator.includes(q))
+  );
+
+  state.filtered = [...custom, ...list];
+  renderHadiths();
+  renderPagination();
+  updateCount();
+}
+
+function updateCount() {
+  const n = state.filtered.length;
+  document.getElementById('resultsInfo').textContent = n.toLocaleString('ar-SA') + ' حديث';
+}
+
+function renderHadiths() {
+  const list   = document.getElementById('hadithsList');
+  const start  = (state.currentPage - 1) * PER_PAGE;
+  const page   = state.filtered.slice(start, start + PER_PAGE);
+
+  if (state.filtered.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="eicon">🔍</div><div style="font-size:16px;font-weight:700">لا توجد نتائج</div></div>`;
+    return;
+  }
+
+  list.innerHTML = page.map((h, i) => {
+    const bookName = BOOKS[h.book]?.ar || h.book || '';
+    const isFav    = state.favorites.includes(h.id);
+    const gradeClass = h.grade === 'صحيح' ? 'grade-sahih' : h.grade === 'حسن' ? 'grade-hasan' : 'grade-daif';
+    const textShort = h.text.length > 400 ? h.text.substring(0, 400) + '...' : h.text;
+
+    return `
+    <div class="hadith-card" style="animation-delay:${i*.05}s">
+      <div class="hadith-card-header">
+        <div class="hadith-num">${h.num}</div>
+        <div class="badges">
+          <span class="hadith-book-label">${bookName}</span>
+          <span class="${gradeClass}">${h.grade}</span>
+        </div>
+      </div>
+      <div class="hadith-text">${textShort}</div>
+      ${h.narrator ? `<div class="hadith-narrator">👤 ${h.narrator}</div>` : ''}
+      <div class="hadith-card-actions">
+        <button class="small-btn" onclick="copyById('${h.id}')">📋 نسخ</button>
+        <button class="small-btn ${isFav ? 'fav-active' : ''}" id="fav-${h.id}" onclick="toggleFav('${h.id}')">
+          ${isFav ? '❤️ محفوظ' : '🤍 مفضلة'}
+        </button>
+        <button class="small-btn" onclick="openShare('${h.id}')">📤 مشاركة</button>
+        <button class="small-btn" onclick="shareWa('${h.id}')">💬 واتساب</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderPagination() {
+  const total = state.filtered.length;
+  const pages = Math.ceil(total / PER_PAGE);
+  const cur   = state.currentPage;
+  const pag   = document.getElementById('pagination');
+
+  if (pages <= 1) { pag.innerHTML = ''; return; }
+
+  let html = `<button class="page-btn" onclick="goPage(${cur-1})" ${cur===1?'disabled':''}>›</button>`;
+  for (let i = 1; i <= pages; i++) {
+    if (i===1||i===pages||(i>=cur-2&&i<=cur+2)) {
+      html += `<button class="page-btn ${i===cur?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    } else if (i===cur-3||i===cur+3) {
+      html += `<span style="padding:0 4px;color:var(--text-muted)">…</span>`;
+    }
+  }
+  html += `<button class="page-btn" onclick="goPage(${cur+1})" ${cur===pages?'disabled':''}>‹</button>`;
+  pag.innerHTML = html;
+}
+
+function goPage(n) {
+  const pages = Math.ceil(state.filtered.length / PER_PAGE);
+  if (n < 1 || n > pages) return;
+  state.currentPage = n;
+  renderHadiths();
+  renderPagination();
+  scrollTo('hadithsSection');
+}
+
+// ============================================================
+// HADITH OF THE DAY
+// ============================================================
+async function loadHadithOfDay() {
+  // نختار رقم الحديث بناءً على تاريخ اليوم
+  const dayNum = (new Date().getDate() % 50) + 1;
+  try {
+    const url  = `${CDN_BASE}/ara-bukhari/${dayNum}.min.json`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    const h    = data.hadiths?.[0] || data;
+
+    document.getElementById('hadithOfDay').innerHTML = `
+      <div class="hadith-day-card">
+        <div class="hadith-day-text">${(h.text||'').substring(0,500)}</div>
+        <div class="hadith-day-meta">
+          <span class="meta-badge">📖 صحيح البخاري</span>
+          <span class="meta-badge">رقم ${h.hadithnumber || dayNum}</span>
+          <span class="grade-badge-gold">✅ صحيح</span>
+        </div>
+        <div class="hadith-actions">
+          <button class="action-btn" onclick="navigator.clipboard.writeText(\`${(h.text||'').replace(/`/g,"'")}\`).then(()=>showToast('✅ تم النسخ'))">📋 نسخ</button>
+          <button class="action-btn" onclick="window.open('https://wa.me/?text='+encodeURIComponent(\`${(h.text||'').substring(0,300).replace(/`/g,"'")}\n\nصحيح البخاري - نور الحديث\`),'_blank')">💬 واتساب</button>
+        </div>
+      </div>`;
+  } catch(e) {
+    document.getElementById('hadithOfDay').innerHTML = `
+      <div class="hadith-day-card">
+        <div class="hadith-day-text">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</div>
+        <div class="hadith-day-meta">
+          <span class="meta-badge">📖 صحيح البخاري</span>
+          <span class="grade-badge-gold">✅ صحيح</span>
+        </div>
+      </div>`;
+  }
+}
+
+// ============================================================
+// SEARCH
+// ============================================================
+let searchTimer;
+function handleSearch(val) {
+  document.getElementById('hadithSearch').value = val;
+  document.getElementById('mainSearch').value   = val;
+  state.currentSearch = val;
+  state.currentPage   = 1;
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    if (state.allHadiths.length > 0) applyFilters();
+  }, 300);
+}
+
+// ============================================================
+// FAVORITES
+// ============================================================
+function toggleFav(id) {
+  const idx = state.favorites.indexOf(id);
+  if (idx >= 0) { state.favorites.splice(idx,1); showToast('تم الإزالة'); }
+  else          { state.favorites.push(id);      showToast('❤️ أُضيف للمفضلة'); }
+  localStorage.setItem('noor_favs', JSON.stringify(state.favorites));
+  const btn = document.getElementById('fav-'+id);
+  if (btn) {
+    btn.className = 'small-btn ' + (state.favorites.includes(id) ? 'fav-active' : '');
+    btn.innerHTML = state.favorites.includes(id) ? '❤️ محفوظ' : '🤍 مفضلة';
+  }
+}
+
+function showFavorites() {
+  if (state.favorites.length===0) { showToast('المفضلة فارغة!'); return; }
+  const all  = [...state.allHadiths, ...state.customHadiths];
+  state.filtered   = all.filter(h => state.favorites.includes(h.id));
+  state.currentPage= 1;
+  document.getElementById('sectionLabel').textContent = '❤️ المفضلة';
+  renderHadiths();
+  renderPagination();
+  scrollTo('hadithsSection');
+}
+
+// ============================================================
+// COPY & SHARE
+// ============================================================
+function getHadithById(id) {
+  return [...state.allHadiths, ...state.customHadiths].find(h => String(h.id) === String(id));
+}
+
+function getShareText(id) {
+  const h = getHadithById(id);
+  if (!h) return '';
+  return `${h.text}\n\nالمصدر: ${BOOKS[h.book]?.ar || h.book} (${h.num})\n\n🌐 نور الحديث`;
+}
+
+function copyById(id) {
+  const text = getShareText(id);
+  navigator.clipboard.writeText(text).then(() => showToast('✅ تم نسخ الحديث'));
+}
+
+function openShare(id) {
+  const h = getHadithById(id);
+  if (!h) return;
+  state.shareHadith = id;
+  document.getElementById('sharePreview').textContent = h.text.substring(0,200) + (h.text.length>200?'...':'');
+  document.getElementById('shareModal').classList.add('open');
+}
+
+function closeShare() { document.getElementById('shareModal').classList.remove('open'); }
+
+function doShare(platform) {
+  const text = getShareText(state.shareHadith);
+  const enc  = encodeURIComponent(text);
+  if (platform==='wa')   window.open(`https://wa.me/?text=${enc}`, '_blank');
+  if (platform==='fb')   window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`, '_blank');
+  if (platform==='tw')   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text.substring(0,240))}`, '_blank');
+  if (platform==='copy') { navigator.clipboard.writeText(text).then(()=>showToast('✅ تم النسخ')); closeShare(); }
+}
+
+function shareWa(id) {
+  const text = getShareText(id);
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+// ============================================================
+// ADMIN PANEL
+// ============================================================
+function openAdmin() {
+  document.getElementById('adminOverlay').classList.add('open');
+  state.adminLoggedIn ? renderAdminDash() : renderAdminLogin();
+}
+function closeAdmin() { document.getElementById('adminOverlay').classList.remove('open'); }
+function closeAdminOverlay(e) { if(e.target===document.getElementById('adminOverlay')) closeAdmin(); }
+
+function renderAdminLogin() {
+  document.getElementById('adminBody').innerHTML = `
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:52px;margin-bottom:10px">🔐</div>
+      <div style="font-size:17px;font-weight:700">دخول لوحة التحكم</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px">هذه المنطقة للمسؤول فقط</div>
+    </div>
+    <div class="form-row"><label>كلمة المرور</label>
+      <input type="password" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPass()">
+    </div>
+    <button class="btn-green" onclick="checkPass()">🔑 دخول</button>`;
+}
+
+function checkPass() {
+  const v = document.getElementById('adminPassInput')?.value;
+  if (v === ADMIN_PASS) {
+    state.adminLoggedIn = true;
+    renderAdminDash();
+    showToast('✅ أهلاً بك في لوحة التحكم');
+  } else {
+    showToast('❌ كلمة المرور خاطئة');
+  }
+}
+
+function renderAdminDash() {
+  document.getElementById('adminBody').innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card"><div class="sv">${state.allHadiths.length.toLocaleString()}</div><div class="sl">أحاديث محمّلة</div></div>
+      <div class="stat-card"><div class="sv">${state.customHadiths.length}</div><div class="sl">أحاديث مضافة</div></div>
+      <div class="stat-card"><div class="sv">${state.favorites.length}</div><div class="sl">في المفضلة</div></div>
+      <div class="stat-card"><div class="sv">6</div><div class="sl">كتب الحديث</div></div>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" id="atab-add" onclick="showAdminTab('add')">➕ إضافة</button>
+      <button class="admin-tab" id="atab-manage" onclick="showAdminTab('manage')">📋 إدارة</button>
+    </div>
+    <div id="adminTabContent"></div>
+    <button class="btn-green" style="background:#dc2626;margin-top:12px" onclick="state.adminLoggedIn=false;renderAdminLogin();showToast('تم الخروج')">🚪 خروج</button>`;
+  showAdminTab('add');
+}
+
+function showAdminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('atab-'+tab)?.classList.add('active');
+  const c = document.getElementById('adminTabContent');
+
+  if (tab==='add') {
+    c.innerHTML = `
+      <div class="form-row"><label>الكتاب</label>
+        <select id="addBook">${Object.entries(BOOKS).map(([k,v])=>`<option value="${k}">${v.ar}</option>`).join('')}</select>
+      </div>
+      <div class="form-row"><label>رقم الحديث</label><input type="number" id="addNum" placeholder="مثال: 1025"></div>
+      <div class="form-row"><label>الراوي (اختياري)</label><input type="text" id="addNarr" placeholder="مثال: أبو هريرة رضي الله عنه"></div>
+      <div class="form-row"><label>الدرجة</label>
+        <select id="addGrade"><option value="صحيح">صحيح</option><option value="حسن">حسن</option><option value="ضعيف">ضعيف</option></select>
+      </div>
+      <div class="form-row"><label>نص الحديث</label><textarea id="addText" placeholder="أدخل نص الحديث..."></textarea></div>
+      <button class="btn-green" onclick="addCustomHadith()">✅ إضافة الحديث</button>`;
+  } else {
+    if (state.customHadiths.length===0) {
+      c.innerHTML = `<div style="text-align:center;padding:30px;color:var(--text-muted)">لا توجد أحاديث مضافة</div>`;
+    } else {
+      c.innerHTML = `<div class="admin-list">${state.customHadiths.map(h=>`
+        <div class="admin-item">
+          <span class="admin-item-text">${h.text.substring(0,60)}…</span>
+          <button class="admin-item-del" onclick="deleteCustom('${h.id}')">🗑️</button>
+        </div>`).join('')}</div>`;
+    }
+  }
+}
+
+function addCustomHadith() {
+  const book = document.getElementById('addBook').value;
+  const num  = parseInt(document.getElementById('addNum').value)||Math.floor(Math.random()*9999);
+  const narr = document.getElementById('addNarr').value.trim();
+  const grade= document.getElementById('addGrade').value;
+  const text = document.getElementById('addText').value.trim();
+  if (!text) { showToast('❌ أدخل نص الحديث'); return; }
+  const h = { id:'custom_'+Date.now(), book, num, narrator:narr, grade, text };
+  state.customHadiths.push(h);
+  localStorage.setItem('noor_custom', JSON.stringify(state.customHadiths));
+  showToast('✅ تم إضافة الحديث');
+  renderAdminDash();
+  applyFilters();
+}
+
+function deleteCustom(id) {
+  if (!confirm('حذف هذا الحديث؟')) return;
+  state.customHadiths = state.customHadiths.filter(h=>h.id!==id);
+  localStorage.setItem('noor_custom', JSON.stringify(state.customHadiths));
+  showToast('🗑️ تم الحذف');
+  renderAdminDash();
+  applyFilters();
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+let toastT;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>el.classList.remove('show'), 2800);
+}
+
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+async function init() {
+  // تحميل حديث اليوم
+  loadHadithOfDay();
+
+  // تحميل البخاري كبداية
+  showListLoading();
+  const bukhari = await fetchBook('bukhari');
+  state.allHadiths = bukhari;
+  state.filtered   = [...state.customHadiths, ...bukhari];
+  state.currentBook = 'bukhari';
+  document.getElementById('bookFilter').value = 'bukhari';
+  document.getElementById('book-bukhari')?.classList.add('active-book');
+  document.getElementById('sectionLabel').textContent = '📖 صحيح البخاري';
+  document.getElementById('totalCountHero').textContent = '7,563+';
+  renderHadiths();
+  renderPagination();
+  updateCount();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') { closeAdmin(); closeShare(); }
+});
+
+init();
+</script>
+</body>
+</html>
