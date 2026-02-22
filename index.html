@@ -4,6 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>نور الحديث | موسوعة الأحاديث النبوية</title>
+
+<!-- ✅ PWA Meta Tags -->
+<meta name="theme-color" content="#1a472a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="نور الحديث">
+<meta name="description" content="آلاف الأحاديث النبوية الصحيحة من أمهات كتب السنة مع البحث السريع والتصفية الدقيقة">
+
+<!-- ✅ PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- ✅ Apple Icons -->
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144.png">
+
+<!-- ✅ Favicon -->
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/icons/icon-96.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
@@ -29,6 +49,23 @@ body.dark {
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Cairo',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; }
+
+/* ✅ PWA Install Banner */
+#installBanner {
+  display:none; position:fixed; bottom:0; left:0; right:0; z-index:200;
+  background:linear-gradient(135deg,var(--green),var(--green-mid));
+  padding:14px 20px; box-shadow:0 -4px 20px rgba(0,0,0,.3);
+  animation:slideUpBanner .4s ease;
+}
+@keyframes slideUpBanner { from { transform:translateY(100%); } to { transform:translateY(0); } }
+#installBanner.show { display:flex; align-items:center; gap:12px; }
+.install-icon { font-size:30px; }
+.install-text { flex:1; }
+.install-title { color:white; font-size:14px; font-weight:700; }
+.install-sub { color:rgba(255,255,255,.7); font-size:12px; }
+.install-btns { display:flex; gap:8px; }
+.install-yes { background:var(--gold); color:#1a2e1e; border:none; padding:8px 16px; border-radius:18px; font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
+.install-no { background:rgba(255,255,255,.15); color:white; border:1px solid rgba(255,255,255,.3); padding:8px 12px; border-radius:18px; font-family:'Cairo',sans-serif; font-size:13px; cursor:pointer; }
 
 /* NAV */
 nav { background:var(--green); position:sticky; top:0; z-index:100; box-shadow:0 2px 20px rgba(0,0,0,.3); }
@@ -184,8 +221,6 @@ body.dark .stat-card .sv { color:var(--green-light); }
 .admin-item { display:flex; align-items:center; gap:8px; padding:9px 11px; border:1px solid var(--border); border-radius:9px; background:var(--bg); }
 .admin-item-text { flex:1; font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .admin-item-del { background:#fef2f2; border:1px solid #fca5a5; color:#ef4444; border-radius:6px; padding:4px 9px; cursor:pointer; font-size:11px; }
-.admin-item-edit { background:#eff6ff; border:1px solid #93c5fd; color:#2563eb; border-radius:6px; padding:4px 9px; cursor:pointer; font-size:11px; }
-body.dark .admin-panel,.dark .form-row input,.dark .form-row select,.dark .form-row textarea { background:var(--card); color:var(--text); border-color:var(--border); }
 
 /* SHARE */
 .share-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:400; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
@@ -204,7 +239,7 @@ body.dark .admin-panel,.dark .form-row input,.dark .form-row select,.dark .form-
 .toast.show { display:flex; }
 @keyframes toastAnim { from { transform:translateX(-50%) translateY(16px); opacity:0; } to { transform:translateX(-50%) translateY(0); opacity:1; } }
 
-footer { background:var(--green); color:rgba(255,255,255,.7); text-align:center; padding:24px 20px; font-size:13px; margin-top:40px; }
+footer { background:var(--green); color:rgba(255,255,255,.7); text-align:center; padding:24px 20px 70px; font-size:13px; margin-top:40px; }
 footer strong { color:var(--gold-light); }
 .footer-links { display:flex; justify-content:center; gap:18px; margin-top:8px; flex-wrap:wrap; }
 .footer-links a { color:rgba(255,255,255,.55); text-decoration:none; font-size:12px; transition:color .2s; }
@@ -224,6 +259,19 @@ footer strong { color:var(--gold-light); }
 </style>
 </head>
 <body>
+
+<!-- ✅ PWA Install Banner -->
+<div id="installBanner">
+  <div class="install-icon">📲</div>
+  <div class="install-text">
+    <div class="install-title">ثبّت تطبيق نور الحديث</div>
+    <div class="install-sub">يعمل بدون إنترنت • مجاني تماماً</div>
+  </div>
+  <div class="install-btns">
+    <button class="install-yes" onclick="installPWA()">تثبيت</button>
+    <button class="install-no" onclick="dismissInstall()">لاحقاً</button>
+  </div>
+</div>
 
 <nav>
   <div class="nav-inner">
@@ -264,7 +312,6 @@ footer strong { color:var(--gold-light); }
   </div>
 </div>
 
-<!-- HADITH OF DAY -->
 <div class="section">
   <div class="section-header">
     <div class="section-title">🌟 حديث اليوم</div>
@@ -278,47 +325,21 @@ footer strong { color:var(--gold-light); }
   </div>
 </div>
 
-<!-- BOOKS -->
 <div class="section" id="booksSection">
   <div class="section-header">
     <div class="section-title">📚 كتب السنة</div>
     <div class="section-line"></div>
   </div>
   <div class="books-grid">
-    <div class="book-card" id="book-bukhari" onclick="loadBook('bukhari')">
-      <div class="book-icon">📗</div>
-      <div class="book-name">صحيح البخاري</div>
-      <div class="book-count" id="count-bukhari">7,563 حديث</div>
-    </div>
-    <div class="book-card" id="book-muslim" onclick="loadBook('muslim')">
-      <div class="book-icon">📘</div>
-      <div class="book-name">صحيح مسلم</div>
-      <div class="book-count" id="count-muslim">3,033 حديث</div>
-    </div>
-    <div class="book-card" id="book-abudawud" onclick="loadBook('abudawud')">
-      <div class="book-icon">📙</div>
-      <div class="book-name">سنن أبي داود</div>
-      <div class="book-count" id="count-abudawud">5,274 حديث</div>
-    </div>
-    <div class="book-card" id="book-tirmidhi" onclick="loadBook('tirmidhi')">
-      <div class="book-icon">📕</div>
-      <div class="book-name">سنن الترمذي</div>
-      <div class="book-count" id="count-tirmidhi">3,891 حديث</div>
-    </div>
-    <div class="book-card" id="book-nasai" onclick="loadBook('nasai')">
-      <div class="book-icon">📒</div>
-      <div class="book-name">سنن النسائي</div>
-      <div class="book-count" id="count-nasai">5,761 حديث</div>
-    </div>
-    <div class="book-card" id="book-ibnmajah" onclick="loadBook('ibnmajah')">
-      <div class="book-icon">📓</div>
-      <div class="book-name">سنن ابن ماجه</div>
-      <div class="book-count" id="count-ibnmajah">4,341 حديث</div>
-    </div>
+    <div class="book-card" id="book-bukhari" onclick="loadBook('bukhari')"><div class="book-icon">📗</div><div class="book-name">صحيح البخاري</div><div class="book-count" id="count-bukhari">7,563 حديث</div></div>
+    <div class="book-card" id="book-muslim" onclick="loadBook('muslim')"><div class="book-icon">📘</div><div class="book-name">صحيح مسلم</div><div class="book-count" id="count-muslim">3,033 حديث</div></div>
+    <div class="book-card" id="book-abudawud" onclick="loadBook('abudawud')"><div class="book-icon">📙</div><div class="book-name">سنن أبي داود</div><div class="book-count" id="count-abudawud">5,274 حديث</div></div>
+    <div class="book-card" id="book-tirmidhi" onclick="loadBook('tirmidhi')"><div class="book-icon">📕</div><div class="book-name">سنن الترمذي</div><div class="book-count" id="count-tirmidhi">3,891 حديث</div></div>
+    <div class="book-card" id="book-nasai" onclick="loadBook('nasai')"><div class="book-icon">📒</div><div class="book-name">سنن النسائي</div><div class="book-count" id="count-nasai">5,761 حديث</div></div>
+    <div class="book-card" id="book-ibnmajah" onclick="loadBook('ibnmajah')"><div class="book-icon">📓</div><div class="book-name">سنن ابن ماجه</div><div class="book-count" id="count-ibnmajah">4,341 حديث</div></div>
   </div>
 </div>
 
-<!-- HADITHS -->
 <div class="section" id="hadithsSection">
   <div class="section-header">
     <div class="section-title" id="sectionLabel">📖 جميع الأحاديث</div>
@@ -353,18 +374,13 @@ footer strong { color:var(--gold-light); }
   </div>
 </footer>
 
-<!-- ADMIN -->
 <div class="admin-overlay" id="adminOverlay" onclick="closeAdminOverlay(event)">
   <div class="admin-panel">
-    <div class="admin-header">
-      <h2>🔐 لوحة التحكم</h2>
-      <button class="admin-close" onclick="closeAdmin()">✕</button>
-    </div>
+    <div class="admin-header"><h2>🔐 لوحة التحكم</h2><button class="admin-close" onclick="closeAdmin()">✕</button></div>
     <div class="admin-body" id="adminBody"></div>
   </div>
 </div>
 
-<!-- SHARE -->
 <div class="share-modal" id="shareModal" onclick="if(event.target===this)closeShare()">
   <div class="share-box">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
@@ -373,9 +389,9 @@ footer strong { color:var(--gold-light); }
     </div>
     <div id="sharePreview" style="font-family:'Amiri',serif;font-size:15px;line-height:1.8;padding:12px;background:var(--bg);border-radius:9px;margin-bottom:14px;border-right:3px solid var(--gold);"></div>
     <div class="share-btns">
-      <button class="share-btn share-wa"   onclick="doShare('wa')">💬 واتساب</button>
-      <button class="share-btn share-fb"   onclick="doShare('fb')">📘 فيسبوك</button>
-      <button class="share-btn share-tw"   onclick="doShare('tw')">🐦 تويتر</button>
+      <button class="share-btn share-wa" onclick="doShare('wa')">💬 واتساب</button>
+      <button class="share-btn share-fb" onclick="doShare('fb')">📘 فيسبوك</button>
+      <button class="share-btn share-tw" onclick="doShare('tw')">🐦 تويتر</button>
       <button class="share-btn share-copy" onclick="doShare('copy')">📋 نسخ</button>
     </div>
   </div>
@@ -385,9 +401,53 @@ footer strong { color:var(--gold-light); }
 
 <script>
 // ============================================================
+// PWA - Service Worker & Install
+// ============================================================
+let deferredPrompt = null;
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('✅ SW registered'))
+      .catch(err => console.log('SW error:', err));
+  });
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show banner after 3 seconds if not dismissed before
+  const dismissed = localStorage.getItem('noor_install_dismissed');
+  if (!dismissed) {
+    setTimeout(() => {
+      document.getElementById('installBanner').classList.add('show');
+    }, 3000);
+  }
+});
+
+async function installPWA() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('installBanner').classList.remove('show');
+  if (outcome === 'accepted') showToast('✅ تم تثبيت التطبيق بنجاح!');
+}
+
+function dismissInstall() {
+  document.getElementById('installBanner').classList.remove('show');
+  localStorage.setItem('noor_install_dismissed', 'true');
+}
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').classList.remove('show');
+  showToast('✅ تم تثبيت نور الحديث!');
+});
+
+// ============================================================
 // CONFIG & STATE
 // ============================================================
-const ADMIN_PASS   = 'noor2024admin'; // ← غيّرها
+const ADMIN_PASS   = 'noor2024admin';
 const CDN_BASE     = 'https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions';
 
 const BOOKS = {
@@ -395,33 +455,26 @@ const BOOKS = {
   muslim:   { ar:'صحيح مسلم',      code:'ara-muslim',    total:3033 },
   abudawud: { ar:'سنن أبي داود',   code:'ara-abudawud',  total:5274 },
   tirmidhi: { ar:'سنن الترمذي',    code:'ara-tirmidhi',  total:3891 },
-  nasai:    { ar:'سنن nasai',       code:'ara-nasai',     total:5761 },
+  nasai:    { ar:'سنن النسائي',    code:'ara-nasai',     total:5761 },
   ibnmajah: { ar:'سنن ابن ماجه',   code:'ara-ibnmajah',  total:4341 },
 };
-
-// Fix nasai Arabic name
-BOOKS.nasai.ar = 'سنن النسائي';
 
 const PER_PAGE = 10;
 
 const state = {
-  dark:         localStorage.getItem('noor_dark') === 'true',
-  favorites:    JSON.parse(localStorage.getItem('noor_favs') || '[]'),
-  customHadiths:JSON.parse(localStorage.getItem('noor_custom') || '[]'),
-  adminLoggedIn:false,
-  currentBook:  '',
-  currentSearch:'',
-  currentPage:  1,
-  allHadiths:   [],     // loaded from API
-  filtered:     [],
-  shareHadith:  null,
-  loading:      false,
-  cache:        {},     // book => hadiths[]
+  dark:          localStorage.getItem('noor_dark') === 'true',
+  favorites:     JSON.parse(localStorage.getItem('noor_favs') || '[]'),
+  customHadiths: JSON.parse(localStorage.getItem('noor_custom') || '[]'),
+  adminLoggedIn: false,
+  currentBook:   '',
+  currentSearch: '',
+  currentPage:   1,
+  allHadiths:    [],
+  filtered:      [],
+  shareHadith:   null,
+  cache:         {},
 };
 
-// ============================================================
-// DARK MODE
-// ============================================================
 if (state.dark) {
   document.body.classList.add('dark');
   document.getElementById('darkBtn').textContent = '☀️ ';
@@ -434,31 +487,20 @@ function toggleDark() {
   document.getElementById('darkBtn').innerHTML = state.dark ? '☀️ <span class="lbl">نهاري</span>' : '🌙 <span class="lbl">ليلي</span>';
 }
 
-// ============================================================
-// API  — fawazahmed0/hadith-api (مجاني بلا مفتاح)
-// ============================================================
 async function fetchBook(bookKey) {
   if (state.cache[bookKey]) return state.cache[bookKey];
-
   const code = BOOKS[bookKey]?.code;
   if (!code) return [];
-
   try {
     const url  = `${CDN_BASE}/${code}.min.json`;
     const resp = await fetch(url);
     if (!resp.ok) throw new Error('fetch failed');
     const data = await resp.json();
-
-    // بنية الـ API: { hadiths: [ {hadithnumber, text}, ... ] }
     const list = (data.hadiths || []).map(h => ({
-      id:       `${bookKey}_${h.hadithnumber}`,
-      book:     bookKey,
-      num:      h.hadithnumber,
-      text:     h.text || '',
-      narrator: extractNarrator(h.text || ''),
-      grade:    'صحيح',   // API لا يحتوي درجة في الـ edition العربية
+      id: `${bookKey}_${h.hadithnumber}`,
+      book: bookKey, num: h.hadithnumber,
+      text: h.text || '', narrator: extractNarrator(h.text || ''), grade: 'صحيح',
     }));
-
     state.cache[bookKey] = list;
     return list;
   } catch(e) {
@@ -468,54 +510,35 @@ async function fetchBook(bookKey) {
 }
 
 function extractNarrator(text) {
-  // محاولة استخراج اسم الراوي من أول الحديث
   const m = text.match(/^([^:]+):/);
   if (m) return m[1].trim().replace(/^عن\s+/, '').replace(/^حدثنا\s+/, '');
   return '';
 }
 
-// ============================================================
-// LOAD & RENDER
-// ============================================================
 async function loadBook(bookKey) {
-  // تحديث UI فوراً
   document.getElementById('bookFilter').value = bookKey;
   document.querySelectorAll('.book-card').forEach(c => c.classList.remove('active-book'));
   if (bookKey) document.getElementById('book-' + bookKey)?.classList.add('active-book');
-
-  state.currentBook   = bookKey;
-  state.currentPage   = 1;
-  state.currentSearch = '';
+  state.currentBook = bookKey; state.currentPage = 1; state.currentSearch = '';
   document.getElementById('hadithSearch').value = '';
-
   const label = bookKey ? `📖 ${BOOKS[bookKey]?.ar}` : '📖 جميع الأحاديث';
   document.getElementById('sectionLabel').textContent = label;
-
   showListLoading();
   scrollTo('hadithsSection');
-
   if (bookKey) {
-    const hadiths = await fetchBook(bookKey);
-    state.allHadiths = hadiths;
+    state.allHadiths = await fetchBook(bookKey);
   } else {
-    // تحميل أول كتابَين كعيّنة إذا لم يُحدَّد كتاب
     if (state.allHadiths.length === 0) {
       const bk = await fetchBook('bukhari');
       const ms = await fetchBook('muslim');
       state.allHadiths = [...bk, ...ms];
     }
   }
-
   applyFilters();
 }
 
 function showListLoading() {
-  document.getElementById('hadithsList').innerHTML = `
-    <div class="loading-screen">
-      <div class="spinner"></div>
-      <div class="loading-text">جاري تحميل الأحاديث من السيرفر...</div>
-      <div class="loading-sub">قد يستغرق ذلك لحظات</div>
-    </div>`;
+  document.getElementById('hadithsList').innerHTML = `<div class="loading-screen"><div class="spinner"></div><div class="loading-text">جاري تحميل الأحاديث...</div><div class="loading-sub">قد يستغرق ذلك لحظات</div></div>`;
   document.getElementById('pagination').innerHTML = '';
   document.getElementById('resultsInfo').textContent = '—';
 }
@@ -523,60 +546,42 @@ function showListLoading() {
 function applyFilters() {
   const q = state.currentSearch.trim();
   let list = state.allHadiths;
-
-  if (q.length >= 2) {
-    list = list.filter(h => h.text.includes(q) || h.narrator.includes(q));
-  }
-
-  // أضف الأحاديث المخصصة
+  if (q.length >= 2) list = list.filter(h => h.text.includes(q) || h.narrator.includes(q));
   const custom = state.customHadiths.filter(h =>
     (!state.currentBook || h.book === state.currentBook) &&
     (!q || h.text.includes(q) || h.narrator.includes(q))
   );
-
   state.filtered = [...custom, ...list];
-  renderHadiths();
-  renderPagination();
-  updateCount();
+  renderHadiths(); renderPagination(); updateCount();
 }
 
 function updateCount() {
-  const n = state.filtered.length;
-  document.getElementById('resultsInfo').textContent = n.toLocaleString('ar-SA') + ' حديث';
+  document.getElementById('resultsInfo').textContent = state.filtered.length.toLocaleString('ar-SA') + ' حديث';
 }
 
 function renderHadiths() {
-  const list   = document.getElementById('hadithsList');
-  const start  = (state.currentPage - 1) * PER_PAGE;
-  const page   = state.filtered.slice(start, start + PER_PAGE);
-
+  const list  = document.getElementById('hadithsList');
+  const start = (state.currentPage - 1) * PER_PAGE;
+  const page  = state.filtered.slice(start, start + PER_PAGE);
   if (state.filtered.length === 0) {
     list.innerHTML = `<div class="empty-state"><div class="eicon">🔍</div><div style="font-size:16px;font-weight:700">لا توجد نتائج</div></div>`;
     return;
   }
-
   list.innerHTML = page.map((h, i) => {
     const bookName = BOOKS[h.book]?.ar || h.book || '';
     const isFav    = state.favorites.includes(h.id);
     const gradeClass = h.grade === 'صحيح' ? 'grade-sahih' : h.grade === 'حسن' ? 'grade-hasan' : 'grade-daif';
-    const textShort = h.text.length > 400 ? h.text.substring(0, 400) + '...' : h.text;
-
-    return `
-    <div class="hadith-card" style="animation-delay:${i*.05}s">
+    const textShort  = h.text.length > 400 ? h.text.substring(0, 400) + '...' : h.text;
+    return `<div class="hadith-card" style="animation-delay:${i*.05}s">
       <div class="hadith-card-header">
         <div class="hadith-num">${h.num}</div>
-        <div class="badges">
-          <span class="hadith-book-label">${bookName}</span>
-          <span class="${gradeClass}">${h.grade}</span>
-        </div>
+        <div class="badges"><span class="hadith-book-label">${bookName}</span><span class="${gradeClass}">${h.grade}</span></div>
       </div>
       <div class="hadith-text">${textShort}</div>
       ${h.narrator ? `<div class="hadith-narrator">👤 ${h.narrator}</div>` : ''}
       <div class="hadith-card-actions">
         <button class="small-btn" onclick="copyById('${h.id}')">📋 نسخ</button>
-        <button class="small-btn ${isFav ? 'fav-active' : ''}" id="fav-${h.id}" onclick="toggleFav('${h.id}')">
-          ${isFav ? '❤️ محفوظ' : '🤍 مفضلة'}
-        </button>
+        <button class="small-btn ${isFav ? 'fav-active' : ''}" id="fav-${h.id}" onclick="toggleFav('${h.id}')">${isFav ? '❤️ محفوظ' : '🤍 مفضلة'}</button>
         <button class="small-btn" onclick="openShare('${h.id}')">📤 مشاركة</button>
         <button class="small-btn" onclick="shareWa('${h.id}')">💬 واتساب</button>
       </div>
@@ -589,16 +594,11 @@ function renderPagination() {
   const pages = Math.ceil(total / PER_PAGE);
   const cur   = state.currentPage;
   const pag   = document.getElementById('pagination');
-
   if (pages <= 1) { pag.innerHTML = ''; return; }
-
   let html = `<button class="page-btn" onclick="goPage(${cur-1})" ${cur===1?'disabled':''}>›</button>`;
   for (let i = 1; i <= pages; i++) {
-    if (i===1||i===pages||(i>=cur-2&&i<=cur+2)) {
-      html += `<button class="page-btn ${i===cur?'active':''}" onclick="goPage(${i})">${i}</button>`;
-    } else if (i===cur-3||i===cur+3) {
-      html += `<span style="padding:0 4px;color:var(--text-muted)">…</span>`;
-    }
+    if (i===1||i===pages||(i>=cur-2&&i<=cur+2)) html += `<button class="page-btn ${i===cur?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    else if (i===cur-3||i===cur+3) html += `<span style="padding:0 4px;color:var(--text-muted)">…</span>`;
   }
   html += `<button class="page-btn" onclick="goPage(${cur+1})" ${cur===pages?'disabled':''}>‹</button>`;
   pag.innerHTML = html;
@@ -608,23 +608,17 @@ function goPage(n) {
   const pages = Math.ceil(state.filtered.length / PER_PAGE);
   if (n < 1 || n > pages) return;
   state.currentPage = n;
-  renderHadiths();
-  renderPagination();
+  renderHadiths(); renderPagination();
   scrollTo('hadithsSection');
 }
 
-// ============================================================
-// HADITH OF THE DAY
-// ============================================================
 async function loadHadithOfDay() {
-  // نختار رقم الحديث بناءً على تاريخ اليوم
   const dayNum = (new Date().getDate() % 50) + 1;
   try {
     const url  = `${CDN_BASE}/ara-bukhari/${dayNum}.min.json`;
     const resp = await fetch(url);
     const data = await resp.json();
     const h    = data.hadiths?.[0] || data;
-
     document.getElementById('hadithOfDay').innerHTML = `
       <div class="hadith-day-card">
         <div class="hadith-day-text">${(h.text||'').substring(0,500)}</div>
@@ -642,73 +636,45 @@ async function loadHadithOfDay() {
     document.getElementById('hadithOfDay').innerHTML = `
       <div class="hadith-day-card">
         <div class="hadith-day-text">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</div>
-        <div class="hadith-day-meta">
-          <span class="meta-badge">📖 صحيح البخاري</span>
-          <span class="grade-badge-gold">✅ صحيح</span>
-        </div>
+        <div class="hadith-day-meta"><span class="meta-badge">📖 صحيح البخاري</span><span class="grade-badge-gold">✅ صحيح</span></div>
       </div>`;
   }
 }
 
-// ============================================================
-// SEARCH
-// ============================================================
 let searchTimer;
 function handleSearch(val) {
   document.getElementById('hadithSearch').value = val;
   document.getElementById('mainSearch').value   = val;
-  state.currentSearch = val;
-  state.currentPage   = 1;
+  state.currentSearch = val; state.currentPage = 1;
   clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => {
-    if (state.allHadiths.length > 0) applyFilters();
-  }, 300);
+  searchTimer = setTimeout(() => { if (state.allHadiths.length > 0) applyFilters(); }, 300);
 }
 
-// ============================================================
-// FAVORITES
-// ============================================================
 function toggleFav(id) {
   const idx = state.favorites.indexOf(id);
   if (idx >= 0) { state.favorites.splice(idx,1); showToast('تم الإزالة'); }
   else          { state.favorites.push(id);      showToast('❤️ أُضيف للمفضلة'); }
   localStorage.setItem('noor_favs', JSON.stringify(state.favorites));
   const btn = document.getElementById('fav-'+id);
-  if (btn) {
-    btn.className = 'small-btn ' + (state.favorites.includes(id) ? 'fav-active' : '');
-    btn.innerHTML = state.favorites.includes(id) ? '❤️ محفوظ' : '🤍 مفضلة';
-  }
+  if (btn) { btn.className = 'small-btn ' + (state.favorites.includes(id) ? 'fav-active' : ''); btn.innerHTML = state.favorites.includes(id) ? '❤️ محفوظ' : '🤍 مفضلة'; }
 }
 
 function showFavorites() {
   if (state.favorites.length===0) { showToast('المفضلة فارغة!'); return; }
-  const all  = [...state.allHadiths, ...state.customHadiths];
-  state.filtered   = all.filter(h => state.favorites.includes(h.id));
-  state.currentPage= 1;
+  const all = [...state.allHadiths, ...state.customHadiths];
+  state.filtered = all.filter(h => state.favorites.includes(h.id));
+  state.currentPage = 1;
   document.getElementById('sectionLabel').textContent = '❤️ المفضلة';
-  renderHadiths();
-  renderPagination();
-  scrollTo('hadithsSection');
+  renderHadiths(); renderPagination(); scrollTo('hadithsSection');
 }
 
-// ============================================================
-// COPY & SHARE
-// ============================================================
-function getHadithById(id) {
-  return [...state.allHadiths, ...state.customHadiths].find(h => String(h.id) === String(id));
-}
-
+function getHadithById(id) { return [...state.allHadiths, ...state.customHadiths].find(h => String(h.id) === String(id)); }
 function getShareText(id) {
   const h = getHadithById(id);
   if (!h) return '';
   return `${h.text}\n\nالمصدر: ${BOOKS[h.book]?.ar || h.book} (${h.num})\n\n🌐 نور الحديث`;
 }
-
-function copyById(id) {
-  const text = getShareText(id);
-  navigator.clipboard.writeText(text).then(() => showToast('✅ تم نسخ الحديث'));
-}
-
+function copyById(id) { navigator.clipboard.writeText(getShareText(id)).then(() => showToast('✅ تم نسخ الحديث')); }
 function openShare(id) {
   const h = getHadithById(id);
   if (!h) return;
@@ -716,9 +682,7 @@ function openShare(id) {
   document.getElementById('sharePreview').textContent = h.text.substring(0,200) + (h.text.length>200?'...':'');
   document.getElementById('shareModal').classList.add('open');
 }
-
 function closeShare() { document.getElementById('shareModal').classList.remove('open'); }
-
 function doShare(platform) {
   const text = getShareText(state.shareHadith);
   const enc  = encodeURIComponent(text);
@@ -727,46 +691,23 @@ function doShare(platform) {
   if (platform==='tw')   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text.substring(0,240))}`, '_blank');
   if (platform==='copy') { navigator.clipboard.writeText(text).then(()=>showToast('✅ تم النسخ')); closeShare(); }
 }
+function shareWa(id) { window.open(`https://wa.me/?text=${encodeURIComponent(getShareText(id))}`, '_blank'); }
 
-function shareWa(id) {
-  const text = getShareText(id);
-  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-}
-
-// ============================================================
-// ADMIN PANEL
-// ============================================================
-function openAdmin() {
-  document.getElementById('adminOverlay').classList.add('open');
-  state.adminLoggedIn ? renderAdminDash() : renderAdminLogin();
-}
+function openAdmin() { document.getElementById('adminOverlay').classList.add('open'); state.adminLoggedIn ? renderAdminDash() : renderAdminLogin(); }
 function closeAdmin() { document.getElementById('adminOverlay').classList.remove('open'); }
 function closeAdminOverlay(e) { if(e.target===document.getElementById('adminOverlay')) closeAdmin(); }
 
 function renderAdminLogin() {
   document.getElementById('adminBody').innerHTML = `
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:52px;margin-bottom:10px">🔐</div>
-      <div style="font-size:17px;font-weight:700">دخول لوحة التحكم</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:4px">هذه المنطقة للمسؤول فقط</div>
-    </div>
-    <div class="form-row"><label>كلمة المرور</label>
-      <input type="password" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPass()">
-    </div>
+    <div style="text-align:center;margin-bottom:20px"><div style="font-size:52px;margin-bottom:10px">🔐</div><div style="font-size:17px;font-weight:700">دخول لوحة التحكم</div></div>
+    <div class="form-row"><label>كلمة المرور</label><input type="password" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPass()"></div>
     <button class="btn-green" onclick="checkPass()">🔑 دخول</button>`;
 }
-
 function checkPass() {
   const v = document.getElementById('adminPassInput')?.value;
-  if (v === ADMIN_PASS) {
-    state.adminLoggedIn = true;
-    renderAdminDash();
-    showToast('✅ أهلاً بك في لوحة التحكم');
-  } else {
-    showToast('❌ كلمة المرور خاطئة');
-  }
+  if (v === ADMIN_PASS) { state.adminLoggedIn = true; renderAdminDash(); showToast('✅ أهلاً بك'); }
+  else showToast('❌ كلمة المرور خاطئة');
 }
-
 function renderAdminDash() {
   document.getElementById('adminBody').innerHTML = `
     <div class="stats-grid">
@@ -783,37 +724,24 @@ function renderAdminDash() {
     <button class="btn-green" style="background:#dc2626;margin-top:12px" onclick="state.adminLoggedIn=false;renderAdminLogin();showToast('تم الخروج')">🚪 خروج</button>`;
   showAdminTab('add');
 }
-
 function showAdminTab(tab) {
   document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('atab-'+tab)?.classList.add('active');
   const c = document.getElementById('adminTabContent');
-
   if (tab==='add') {
     c.innerHTML = `
-      <div class="form-row"><label>الكتاب</label>
-        <select id="addBook">${Object.entries(BOOKS).map(([k,v])=>`<option value="${k}">${v.ar}</option>`).join('')}</select>
-      </div>
+      <div class="form-row"><label>الكتاب</label><select id="addBook">${Object.entries(BOOKS).map(([k,v])=>`<option value="${k}">${v.ar}</option>`).join('')}</select></div>
       <div class="form-row"><label>رقم الحديث</label><input type="number" id="addNum" placeholder="مثال: 1025"></div>
       <div class="form-row"><label>الراوي (اختياري)</label><input type="text" id="addNarr" placeholder="مثال: أبو هريرة رضي الله عنه"></div>
-      <div class="form-row"><label>الدرجة</label>
-        <select id="addGrade"><option value="صحيح">صحيح</option><option value="حسن">حسن</option><option value="ضعيف">ضعيف</option></select>
-      </div>
+      <div class="form-row"><label>الدرجة</label><select id="addGrade"><option value="صحيح">صحيح</option><option value="حسن">حسن</option><option value="ضعيف">ضعيف</option></select></div>
       <div class="form-row"><label>نص الحديث</label><textarea id="addText" placeholder="أدخل نص الحديث..."></textarea></div>
       <button class="btn-green" onclick="addCustomHadith()">✅ إضافة الحديث</button>`;
   } else {
-    if (state.customHadiths.length===0) {
-      c.innerHTML = `<div style="text-align:center;padding:30px;color:var(--text-muted)">لا توجد أحاديث مضافة</div>`;
-    } else {
-      c.innerHTML = `<div class="admin-list">${state.customHadiths.map(h=>`
-        <div class="admin-item">
-          <span class="admin-item-text">${h.text.substring(0,60)}…</span>
-          <button class="admin-item-del" onclick="deleteCustom('${h.id}')">🗑️</button>
-        </div>`).join('')}</div>`;
-    }
+    c.innerHTML = state.customHadiths.length===0
+      ? `<div style="text-align:center;padding:30px;color:var(--text-muted)">لا توجد أحاديث مضافة</div>`
+      : `<div class="admin-list">${state.customHadiths.map(h=>`<div class="admin-item"><span class="admin-item-text">${h.text.substring(0,60)}…</span><button class="admin-item-del" onclick="deleteCustom('${h.id}')">🗑️</button></div>`).join('')}</div>`;
   }
 }
-
 function addCustomHadith() {
   const book = document.getElementById('addBook').value;
   const num  = parseInt(document.getElementById('addNum').value)||Math.floor(Math.random()*9999);
@@ -825,43 +753,28 @@ function addCustomHadith() {
   state.customHadiths.push(h);
   localStorage.setItem('noor_custom', JSON.stringify(state.customHadiths));
   showToast('✅ تم إضافة الحديث');
-  renderAdminDash();
-  applyFilters();
+  renderAdminDash(); applyFilters();
 }
-
 function deleteCustom(id) {
   if (!confirm('حذف هذا الحديث؟')) return;
   state.customHadiths = state.customHadiths.filter(h=>h.id!==id);
   localStorage.setItem('noor_custom', JSON.stringify(state.customHadiths));
-  showToast('🗑️ تم الحذف');
-  renderAdminDash();
-  applyFilters();
+  showToast('🗑️ تم الحذف'); renderAdminDash(); applyFilters();
 }
 
-// ============================================================
-// HELPERS
-// ============================================================
 let toastT;
 function showToast(msg) {
   const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
+  el.textContent = msg; el.classList.add('show');
   clearTimeout(toastT);
   toastT = setTimeout(()=>el.classList.remove('show'), 2800);
 }
+function scrollTo(id) { document.getElementById(id)?.scrollIntoView({ behavior:'smooth', block:'start' }); }
 
-function scrollTo(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior:'smooth', block:'start' });
-}
+document.addEventListener('keydown', e => { if (e.key==='Escape') { closeAdmin(); closeShare(); } });
 
-// ============================================================
-// INIT
-// ============================================================
 async function init() {
-  // تحميل حديث اليوم
   loadHadithOfDay();
-
-  // تحميل البخاري كبداية
   showListLoading();
   const bukhari = await fetchBook('bukhari');
   state.allHadiths = bukhari;
@@ -871,15 +784,8 @@ async function init() {
   document.getElementById('book-bukhari')?.classList.add('active-book');
   document.getElementById('sectionLabel').textContent = '📖 صحيح البخاري';
   document.getElementById('totalCountHero').textContent = '7,563+';
-  renderHadiths();
-  renderPagination();
-  updateCount();
+  renderHadiths(); renderPagination(); updateCount();
 }
-
-document.addEventListener('keydown', e => {
-  if (e.key==='Escape') { closeAdmin(); closeShare(); }
-});
-
 init();
 </script>
 </body>
